@@ -11,7 +11,7 @@ resource "aws_instance" "this" {
     Name = "${var.environment}-ec2-instance"
   }
 
-  # Root block device (optional)
+  # Root block device => 
   root_block_device {
     volume_type           = var.root_volume_type
     volume_size           = var.root_volume_size
