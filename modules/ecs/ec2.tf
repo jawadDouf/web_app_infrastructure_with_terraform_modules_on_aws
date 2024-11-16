@@ -1,3 +1,4 @@
+# Define the ec2 instances launch template
 resource "aws_launch_template" "ecs_lt" {
   name_prefix   = "ecs-template"
   image_id      = "ami-062c116e449466e7f"
@@ -27,6 +28,7 @@ resource "aws_launch_template" "ecs_lt" {
   user_data = filebase64("${path.module}/ecs.sh")
 }
 
+# Define auto-scale group of the ec2 instances
 resource "aws_autoscaling_group" "ecs_asg" {
   vpc_zone_identifier = [aws_subnet.subnet.id, aws_subnet.subnet2.id]
   desired_capacity    = 2
