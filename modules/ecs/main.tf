@@ -1,14 +1,14 @@
 # ecs cluster
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "my-ecs-cluster"
+  name = var.ecs_cluster_name ## naming the ecs cluster
 }
 
 # define the ecs provider
 resource "aws_ecs_capacity_provider" "ecs_capacity_provider" {
-  name = "test1"
+  name = var.aws_ecs_capacity_provider_name 
 
   auto_scaling_group_provider {
-    auto_scaling_group_arn = aws_autoscaling_group.ecs_asg.arn
+    auto_scaling_group_arn = aws_autoscaling_group.ecs_asg.arn # specify the auto-scaling group will be used
 
     managed_scaling {
       maximum_scaling_step_size = 1000
@@ -21,9 +21,10 @@ resource "aws_ecs_capacity_provider" "ecs_capacity_provider" {
 
 # link the ecs cluster to the provider
 resource "aws_ecs_cluster_capacity_providers" "example" {
-  cluster_name = aws_ecs_cluster.ecs_cluster.name
+  # link the esg with the ecs
+  cluster_name = aws_ecs_cluster.ecs_cluster.name 
 
-  capacity_providers = [aws_ecs_capacity_provider.ecs_capacity_provider.name]
+  capacity_providers = [aws_ecs_capacity_provider.ecs_capacity_provider.name] 
 
   default_capacity_provider_strategy {
     base              = 1
@@ -37,15 +38,16 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   family             = "my-ecs-task"
   network_mode       = "awsvpc"
   execution_role_arn = "arn:aws:iam::532199187081:role/ecsTaskExecutionRole"
-  cpu                = 256
+  cpu                = 256 
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = "X86_64"
   }
+  # define the containers will be used in the ecs
   container_definitions = jsonencode([
     {
-      name      = "dockergs"
-      image     = "public.ecr.aws/f9n5f1l7/dgs:latest"
+      name      = var.container_name
+      image     = var.container_image
       cpu       = 256
       memory    = 512
       essential = true
@@ -63,9 +65,9 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 
 # define the ecs service 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "my-ecs-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.ecs_task_definition.arn
+  name            = var.ecs_service_name
+  cluster         = aws_ecs_cluster.ecs_cluster.id # specify the ecs cluster 
+  task_definition = aws_ecs_task_definition.ecs_task_definition.arn # specify the task will be handled by the ecs
   desired_count   = 2
 
   network_configuration {
@@ -90,8 +92,8 @@ resource "aws_ecs_service" "ecs_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.ecs_tg.arn
-    container_name   = "dockergs"
-    container_port   = 80
+    container_name   = var.container_name
+    container_port   = var.container_port
   }
 
   depends_on = [aws_autoscaling_group.ecs_asg]
