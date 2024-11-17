@@ -1,6 +1,6 @@
 # Define the ec2 instances launch template
 resource "aws_launch_template" "ecs_lt" {
-  name_prefix   = "ecs-template"
+  name_prefix   = "ec2-template"
   image_id      = "ami-062c116e449466e7f"
   instance_type = "t3.micro"
 
