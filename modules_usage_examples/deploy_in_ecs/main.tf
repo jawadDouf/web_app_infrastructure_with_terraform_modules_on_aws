@@ -5,7 +5,7 @@ provider "aws" {
 # Import the vpc module
 module "vpc" {
   # specify the module's source
-  source = "./modules/vpc"
+  source = "../../modules/vpc"
   
   # initialize the variables
   environment = "dev"
@@ -19,7 +19,7 @@ module "vpc" {
 }
 
 module "security_group" {
-  source = "./modules/security_group"
+  source = "../../modules/security_group"
   environment = "dev"
   # get the vpc id from the module's output
   vpc_id = module.vpc.vpc_id
@@ -28,7 +28,7 @@ module "security_group" {
 }
 
 module "ecs" {
-  source = "./modules/ecs"
+  source = "../../modules/ecs"
   # naming of the launch template
   aws_launch_template_name_prefix = "ec2-launch-template"
 
