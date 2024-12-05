@@ -43,6 +43,8 @@ module "ecs" {
  asg_max_size = 10
  asg_min_size = 4
 
+ vpc_id = module.vpc.vpc_id
+
  # define the container that will be deployed in the created ecs
  container_name = "example_container"
  container_image = "nginx:1-alpine-perl"

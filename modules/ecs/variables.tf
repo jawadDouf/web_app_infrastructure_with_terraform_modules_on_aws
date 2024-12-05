@@ -13,7 +13,10 @@ variable "aws_launch_template_tags" {
   type = string
   default = "ecs-instance"
 }
-
+# vpc config variables
+variable "vpc_id" {
+  type = string
+}
 # auto-scaling group variables
 variable "subnet_ids" {
   type = list(number)

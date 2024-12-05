@@ -71,8 +71,8 @@ resource "aws_ecs_service" "ecs_service" {
   desired_count   = 2
 
   network_configuration {
-    subnets         = [aws_subnet.subnet.id, aws_subnet.subnet2.id]
-    security_groups = [aws_security_group.security_group.id]
+    subnets         = var.subnet_ids 
+    security_groups = var.security_group_ids 
   }
 
   force_new_deployment = true
