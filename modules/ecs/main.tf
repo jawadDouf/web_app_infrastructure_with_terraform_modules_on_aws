@@ -37,7 +37,7 @@ resource "aws_ecs_cluster_capacity_providers" "example" {
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family             = "my-ecs-task"
   network_mode       = "awsvpc"
-  execution_role_arn = "arn:aws:iam::532199187081:role/ecsTaskExecutionRole"
+  execution_role_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy" 
   cpu                = 256 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -90,11 +90,11 @@ resource "aws_ecs_service" "ecs_service" {
     weight            = 100
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.ecs_tg.arn
-    container_name   = var.container_name
-    container_port   = var.container_port
-  }
+//  load_balancer {
+    //target_group_arn = aws_lb_target_group.ecs_tg.arn
+    //container_name   = var.container_name
+    //container_port   = var.container_port
+  //}
 
   depends_on = [aws_autoscaling_group.ecs_asg]
 }

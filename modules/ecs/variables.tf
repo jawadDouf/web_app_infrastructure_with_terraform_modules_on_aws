@@ -1,6 +1,6 @@
 # launch template
 variable "security_group_ids" {
-  type = list(number)
+  type = list(string)
   description = "an array of security groups ids"
 }
 
@@ -19,7 +19,7 @@ variable "vpc_id" {
 }
 # auto-scaling group variables
 variable "subnet_ids" {
-  type = list(number)
+  type = list(string)
   description = "an array of subnet ids"
 }
 

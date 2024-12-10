@@ -40,6 +40,7 @@ resource "aws_autoscaling_group" "ecs_asg" {
     version = "$Latest"
   } # => specify the launch_template
 
+
   tag {
     key                 = "AmazonECSManaged"
     value               = true

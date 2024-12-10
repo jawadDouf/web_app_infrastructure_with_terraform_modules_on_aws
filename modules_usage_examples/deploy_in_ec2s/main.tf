@@ -11,8 +11,8 @@ module "vpc" {
   environment = "dev"
   # specify the allowed ip-adresses inside the vpc and subnets
   cidr_block           = "10.0.0.0/16"
-  public_subnet_cidrs  = ["10.0.0.0/24"]
-  private_subnet_cidrs = ["10.0.0.0/24"]
+  public_subnet_cidrs  = ["10.0.1.0/24"]
+  private_subnet_cidrs = ["10.0.2.0/24"]
   # specify the availablity zones
   public_availability_zones  = ["us-east-1a"]
   private_availability_zones = ["us-east-1b"]
