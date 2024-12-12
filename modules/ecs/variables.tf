@@ -79,7 +79,3 @@ variable "container_memory" {
   default = 512
 }
 
-variable "execution_role_arn" {
-  type = string
-  description = "The role that the ecs will use to connect to the ECR"
-}

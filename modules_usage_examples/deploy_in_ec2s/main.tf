@@ -45,8 +45,6 @@ module "ecs" {
 
   vpc_id = module.vpc.vpc_id
 
-  # define the container that will be deployed in the created ecs
-  execution_role_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   container_name  = "example_container"
   container_image = "nginx:1-alpine-perl"
 
