@@ -37,7 +37,7 @@ resource "aws_ecs_cluster_capacity_providers" "example" {
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family             = "my-ecs-task"
   network_mode       = "awsvpc"
-  execution_role_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy" 
+  execution_role_arn = var.execution_role_arn 
   cpu                = 256 
   runtime_platform {
     operating_system_family = "LINUX"
