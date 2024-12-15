@@ -39,9 +39,9 @@ module "ecs" {
   subnet_ids = concat(module.vpc.public_subnet_ids, module.vpc.private_subnet_ids)
 
   # Set the initial number of ec2s
-  asg_desired_capacity = 5
-  asg_max_size         = 10
-  asg_min_size         = 4
+  asg_desired_capacity = 2
+  asg_max_size         = 3
+  asg_min_size         = 1
 
   vpc_id = module.vpc.vpc_id
 
